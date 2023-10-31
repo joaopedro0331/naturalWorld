@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Cadastrar Empresa{% endblock title %}
+
+{% block body %}
+
+    <style>
+        body{
+            background-color: #0097B2;
+        }
+    </style>
+    <section class="align-items-centerem espaco">
+        <div style="max-width: 500px; padding: 15px 35px 45px; margin:auto; margin-top: 100px;"class="container py-5 h-100">
+        <div class="text-center text-white mb-5">
+            <h1 style="font-size: 24px;">CADASTRAR EMPRESA</h1>
+        </div>
+        <div class="col align-self-center">        
+            <form method="post" enctype="multipart/form-data" action="{% url "cadastrar_usuario_empresa" %}">
+                {% csrf_token %}
+                <div class="container">
+                    <div class="row justify-content-between">
+                        <div class="col-6">
+                            <div class="col">
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text"><i class="fa-solid fa-user"></i></span>
+                                    <input type="text" class="form-control" placeholder="Nome"  name="nome" required>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text"><i class="fa-solid fa-image"></i></span>
+                                    <input type="file" class="form-control" placeholder="Foto" accept="image/*" name="imagem">
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text"><i class="fa-solid fa-envelope"></i></span>
+                                    <input type="email" class="form-control" placeholder="Email" name="email" required>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text"><i class="fa-solid fa-city"></i></span>
+                                    <input type="text" class="form-control" placeholder="CNPJ" name="cnpj" required>
+                                </div>
+                            </div>    
+                        </div>
+                        <div class="col-6">
+                            <div class="input-group mb-3">
+                                <span class="input-group-text"><i class="fa-solid fa-clipboard"></i></span>
+                                <textarea class="form-control" name="descricao" rows="8" placeholder="Descrição" required></textarea>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="input-group mb-3">
+                                <span class="input-group-text"><i class="fa-solid fa-lock"></i></span>
+                                <input type="password" class="form-control" id="senha" placeholder="Senha" name="senha" required>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="input-group mb-3">
+                                <span class="input-group-text"><i class="fa-solid fa-lock"></i></span>
+                                <input type="password" class="form-control" id="confirmacaoSenha" placeholder="Confirmar Senha" required>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="container">
+                    <div class="row justify-content-between">
+                        <div class="col">
+                            <div class="mb-3">
+                                <a class="text-white" href="{% url 'login' %}">Já possui cadastro?</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <button style="background: white; width: 100%;"class="btn submit text-dark" type="submit" onclick="validarSenha()">
+                        Cadastrar
+                    </button>
+                </div>
+            </form>
+        </div>
+    </section>
+
+{% endblock body %}
+
+{% block script %}
+    <script>
+        function validarSenha() {
+            var senha = document.getElementById("senha").value;
+            var confirmacaoSenha = document.getElementById("confirmacaoSenha").value;
+
+            if (senha === confirmacaoSenha) {
+            } else {
+                alert("As senhas não correspondem. Por favor, tente novamente.");
+            }
+        }
+    </script>
+{% endblock script %}

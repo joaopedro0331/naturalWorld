@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+
+{% block body %}
+<div class="container text-center">
+    <div class="row mt-5">
+        <div class="col-12 d-flex align-items-center">
+            <p class="text-start fs-3 fw-bold">Empresas Contraradas</p>
+        </div>
+        {% if messages %}
+        {% for m in messages%}
+            <div class="alert alert-{{m.tags}} alert-dismissible fade show" role="alert">
+                <strong>{{m}}</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor%}
+        {% endif %}
+        <div class="col-12 p-5">
+            {% for e in empresa %}
+                <div class="col-12">
+                    <p class="text-start fs-5 fw-bold">{{e.nome}}</p>
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-6 ">
+                                    <p class="text-start ">{{ e.descricao }}</p>
+                                </div>
+                                <div class="col-6 text-end">
+                                    <img src="{% if e.imagem %} {{ e.imagem.url }} {% endif %}" alt="sem foto" width="40" height="40" class="rounded-circle">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-end">
+                        <button style="width: 200px;" type="button" class="btn btn-success mt-2" data-bs-toggle="modal" data-bs-target="#contato" data-email="{{ e.email }}">Entar em contato</button>
+                        <button style="width: 200px;" type="button" onclick="location.href='{% url 'descontratar_empresa' e.id %}';" class="btn btn-danger mt-2">Descontratar</button>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="contato" tabindex="-1" aria-labelledby="contato" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="contato">Contatar</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <form method="post" action="{% url "email_empresa" %}">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="email-empresa-input" class="form-label">Email empresa</label>
+                    <input type="email" class="form-control"readonly name="email" id="email-empresa-input" value="">
+                </div>
+                <div class="mb-3">
+                    <label for="texto" class="form-label">Assunto</label>
+                    <textarea class="form-control" id="texto" name="texto" rows="3"></textarea>
+                </div>
+        </div>
+        <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                <button type="submit" class="btn btn-primary">Enviar menssagem via email</button>
+            </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock body %}
+
+
+{% block script %}
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Capturar todos os botões "Entar em contato"
+        const botoesContato = document.querySelectorAll('[data-bs-target="#contato"]');
+
+        // Adicionar um ouvinte de evento para cada botão
+        botoesContato.forEach(function (botao) {
+            botao.addEventListener('click', function () {
+                const emailEmpresa = botao.getAttribute('data-email');
+                document.getElementById('email-empresa-input').value = emailEmpresa;
+            });
+        });
+    });
+</script>
+{% endblock script %}

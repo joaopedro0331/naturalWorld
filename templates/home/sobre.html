@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Sobre{% endblock title %}
+
+{% block body %}
+<style>
+    .imagem-moldura {
+        width: 350px;
+        height: 350px;
+    }
+</style>
+<div class="container text-center">
+    <div class="row mt-5">
+        <div class="col-7 d-flex align-items-center">
+            <p class="text-start fs-5 fw-normal">A Educação Ambiental é caracterizada por ações onde devemos
+                ter conhecimentos, atitudes e competências em relação a
+                conservação do meio ambiente. É de muita importância
+                viabilizar os caminhos que o país precisa seguir para enfrentar
+                os problemas ambientais, derivados do manuseio impróprio de
+                resíduos sólidos. Isso tudo está contido no artigo 1° da Lei
+                12.305, de 2010 onde foi decretado a Política Nacional de
+                Resíduos Sólidos (PNRS).
+            </p>
+        </div>
+        <div class="col-5">
+                <img src="http://mpc.ba.gov.br/m/wp-content/uploads/2018/11/PNRS-300x297.jpg" class="img-fluid" alt="Imagem" width="500" height="500">
+        </div>
+    </div>
+</div>
+{% endblock body %}
+
+{% block script %}{% endblock script %}

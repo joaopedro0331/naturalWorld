@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Login{% endblock title %}
+
+{% block body %}
+    <style>
+        body{
+            background-color: #0097B2;
+        }
+    </style>
+    
+    <section class="align-items-centerem espaco">
+    <div style="max-width: 500px; padding: 15px 35px 45px; margin:auto; margin-top: 100px;"class="container py-5 h-100">
+      <div class="text-center text-white mb-5">
+        <h1 style="font-size: 24px;"> Login</h1>
+      </div>
+      <div class="col align-self-center">        
+        <form method="post" action="{% url "login" %}">
+            {% csrf_token %}
+            {% for field in form %}
+                <div class="input-group mb-3">
+                    <span class="input-group-text">
+                        {% if field.name == 'password' %}
+                            <i class="fa-solid fa-lock"></i>
+                        {% elif field.name == 'username' %}
+                            <i class="fa-solid fa-envelope"></i>
+                        {% endif %}
+                    </span>
+                    <input type="{{ field.field.widget.input_type }}" class="form-control" placeholder="{{ field.label }}" name="{{ field.html_name }}" required>
+                </div>
+            {% endfor %}
+            <div class="container">
+                <div class="row justify-content-between">
+                    <div class="col">
+                        <div class="mb-3">
+                            <a class="text-white" href="{% url 'cadastrar_usuario' %}">Cadastre-se</a>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="mb-3">
+                            <a class="text-white" href="{% url 'password_reset' %}">Esqueceu a senha?</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <button style="background: white; width: 100%;"class="btn submit text-dark" type="submit">
+                    Entrar
+                </button>
+            </div>
+        </form>
+      </div>
+    </section>
+
+{% endblock body %}
+
+    

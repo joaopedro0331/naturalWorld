@@ -1,0 +1,199 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Home{% endblock title %}
+
+{% block body %}
+<style>
+  .home{
+    height: 100vh;
+  }
+  .img-mb{
+    margin-top: 100px;
+  }
+  .justify{
+    text-align: justify;
+    text-justify: inter-word;
+  }
+</style>
+<div class="container text-center">
+  <section class="home">
+    <div class="img-mb">
+      <div class="row ">
+        <div class="col p-2">
+          <img src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcTgtCEryXR3KwEy1nh4sN_kwhqCP7lgRIMCpGIgLtUOWPFvHUt7" class="img-fluid" alt="...">
+        </div>
+      </div>
+    </div>
+    <div class="container position-absolute bottom-0 start-50 translate-middle-x mb-5">
+      <div class="row">
+        <div class="col p-5">
+          <h1>Seja Bem - Vindo ao Natural World</h1><br>
+          <h2>Um site que irá auxiliar você sobre a importância da Educação Ambiental</h2>
+        </div>
+      </div>
+      <div class="row justify-content-evenly">
+        {% if not user.is_authenticated %}
+          <div class="col mt-2">
+            <input class="btn btn-info btn-lg" type="button" onclick="location.href='{% url "cadastrar_usuario" %}';" value="Cadastre-se" />
+          </div>
+          <div class="col mt-2">
+            <input class="btn btn-info btn-lg" type="button" onclick="location.href='{% url "cadastrar_usuario_empresa" %}';" value="Cadastrar sua Empresa" />
+          </div>  
+        {% endif %}
+      </div>
+    </div>
+  </section>
+  {% if user.is_authenticated %}
+    <section class="container">
+      <div class="row">
+        <div class="col-12 ">
+          <p class="text-start fs-2 fw-bold">A Educação Ambiental:</p>
+        </div>
+        <div class="col-12">
+          <p class="fs-5 lh-sm justify">
+            A Educação Ambiental é um processo que permite aos indivíduos explorar questões
+            ambientais, envolver-se na resolução de problemas e agir para melhorar o meio
+            ambiente. Como resultado, os indivíduos desenvolvem uma compreensão mais
+            profunda das questões ambientais e têm as habilidades necessárias para tomar
+            decisões informadas e responsáveis (SEAE).
+          </p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12 " style="margin-top: 50px">
+          <p class="text-start fs-2 fw-bold">Benefícios da Educação Ambiental</p>
+        </div>
+        <div class="col-12">
+          <p class="fs-5 lh-sm justify">
+            A Educação Ambiental tem vários benefícios. Ela aumenta a conscientização sobre
+            os problemas que afetam o meio ambiente do qual todos nós dependemos, bem
+            como as ações que podemos tomar para melhorá-lo e sustentá-lo. As habilidades
+            de pensamento crítico e criativo são aprimoradas, incentivando as pessoas a
+            pesquisar e investigar como e por que as coisas acontecem e tomar suas próprias
+            decisões sobre questões ambientais complexas. Além disso, a Educação Ambiental
+            promove a tolerância de diferentes pontos de vista e diferentes culturas (ROSA;
+            CARVALINHO, 2012).
+            Podemos perceber alguns benefícios que práticas sustentáveis podem trazer com
+            os Objetivos de Desenvolvimento Sustentável (ODS), que são:
+          </p>
+          <img class="img-fluid" src="https://brasilnaagenda2030.files.wordpress.com/2019/10/objetivos_port.png" alt="" width="500">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12 " style="margin-top: 50px">
+          <p class="text-start fs-2 fw-bold">Classificação de resíduos</p>
+        </div>
+        <div class="col-12">
+          <p class="fs-5 lh-sm justify">
+            Para haver uma separação ou uma reciclagem correta dos tipos de lixo é preciso 
+            saber como classificá-los e diferenciá-los. Eles podem ser classificados de 
+            três maneiras: orgânicos, inorgânicos e tóxicos.
+            
+            <p class="text-start fs-4 fw-bold">Orgânicos</p>
+            <p class="fs-5 lh-sm justify">
+            O resíduo orgânico é derivado de um ser vivo, ou seja, eles são de origem vegetal ou 
+            animal, alguns exemplos são os restos de alimentos, sementes, papéis, madeira, fezes, urina 
+            e entre outros.
+            Por conta do seu processo de decomposição são considerados muito poluentes podendo prejudicar a 
+            saúde, principalmente se descartados em lugares inadequados pois o ambiente pode abrigar organismos, 
+            bactérias, vírus e fungos causadores de doenças (BITENCOURT et al., 2013). 
+
+            <p class="text-start fs-4 fw-bold">Inorgânicos</p>
+            <p class="fs-5 lh-sm justify">
+              Resíduos inorgânico é todo aquele que não possui origem biológica e também que são fabricados 
+              por meio humano, como plástico, alumínio, vidro etc. Por conta de serem produtos industrializados 
+              eles são formados por milhares de átomos tendo uma matéria mais resistente, isso faz com que o 
+              processo de decomposição seja muito lento, podendo levar anos para se decompor se não tendo 
+              um destino correto (MENEZES; RESIO, 2011). 
+
+              <p class="text-start fs-4 fw-bold">Tóxicos</p>
+              <p class="fs-5 lh-sm justify">
+              Resíduos do tipo tóxicos são muito prejudiciais à saúde podendo causar a morte, geralmente são 
+              derivados de comércios como hospitais, clínicas odontológicas, agricultura, e algumas indústrias. 
+              Esse tipo de lixo pode causar danos permanentes tanto para a saúde quanto para a natureza se 
+              descartados incorretamente (BITENCOURT et al., 2013). 
+            </p>
+          </p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12 " style="margin-top: 50px">
+          <p class="text-start fs-2 fw-bold">Leis Ambientais no Brasil</p>
+        </div>
+        <div class="col-12">
+          <p class="fs-5 lh-sm justify">
+            A legislação ambiental no Brasil é considerada uma das mais completas e
+            avançadas do mundo. As principais leis incluem o Art. 225 da Constituição Federal,
+            a Lei 9.605/1998 (Lei de Crimes Ambientais), o Decreto 6.514/2008 (que
+            regulamenta as infrações e sanções administrativas ao meio ambiente), a Lei
+            6.938/1981 (que dispõe sobre a Política Nacional do Meio Ambiente).
+          </p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12 " style="margin-top: 50px">
+          <p class="text-start fs-2 fw-bold">Impactos Ambientais</p>
+        </div>
+        <div class="col-12">
+          <p class="fs-5 lh-sm justify">
+            Os impactos ambientais são mudanças no meio ambiente causadas pela atividade
+            humana. Exemplos de impactos ambientais incluem erosão do solo causada pela
+            atividade agropecuária, poluição do solo por descarte irregular de resíduos, poluição
+            dos rios por matérias tóxicas provenientes das indústrias, desmatamento, queima de
+            combustíveis fósseis responsáveis pelo efeito estufa, entre outros (MUCELIN;
+            BELLINI, 2008).
+          </p>
+          <img class="mt-2 img-fluid" src="https://static.mundoeducacao.uol.com.br/mundoeducacao/2023/07/residuos-plasticos-amontoados-em-um-lixao-exemplo-de-impacto-ambiental.jpg" alt="" width="400">
+          <img class="mt-2 img-fluid" src="https://www.vertown.com/blog/impactos-ambientais-no-brasil-o-que-sao-consequencias-e-como-diminuir/images/FOTO_4.webp" alt="" width="400">
+          <img class="mt-2 img-fluid" src="https://www.birmind.com.br/blog/wp-content/uploads/2023/02/impactos-ambientais.jpg" alt="" width="400">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12" style="margin-top: 50px">
+          <p class="text-start fs-2 fw-bold">Consequências do Descuido com o Meio Ambiente</p>
+        </div>
+        <div class="col-12">
+          <p class="fs-5 lh-sm justify">
+            As consequências da degradação ambiental são muitas. A grande intensidade
+            desse processo pode levar à mais frequente ocorrência de pandemias e até mesmo
+            elevar a severidade de doenças emergentes. Além disso, problemas como
+            enchentes, chuva ácida, diminuição da biodiversidade, destruição da camada de
+            ozônio, elevação da temperatura global e extinção de espécies são algumas das
+            consequências do descuido com o meio ambiente. Portanto, é crucial que todos nós
+            tomemos medidas para proteger nosso meio ambiente. Através da educação
+            ambiental e do cumprimento das leis ambientais, podemos minimizar os impactos
+            negativos em nosso meio ambiente e garantir um futuro sustentável para as
+            gerações futuras (PASTANA; PORTILHO, 2015).
+          </p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12"style="margin-top: 50px">
+          <p class="text-start fs-2 fw-bold">Destinação Final de resíduos no Paraná</p>
+        </div>
+        <div class="col-12">
+          <p class="fs-5 lh-sm justify">
+            No Paraná, o destino final dos resíduos sólidos é mapeado pelo Instituto Ambiental
+            do Paraná (IAP).O levantamento mostra que 185 municípios (46,4%) dispõem seus
+            resíduos sólidos urbanos em aterros sanitários devidamente licenciados, 93 (23,3%)
+            em áreas de lixão e os outros 121 municípios (30,3%) usam os chamados aterros
+            controlados, que possuem o mínimo de controle ambiental. Mais de 7 milhões de
+            paranaenses (69,7% da população) são atendidos por aterros sanitários
+            devidamente licenciados, pouco mais de 2 milhões (19,9%) por aterros controlados
+            e cerca de 1 milhão (10,4%) por áreas de lixão. As regiões do Estado que
+            alcançaram maior percentual de destinação em áreas de aterro sanitário são as
+            áreas de consórcio ou destinação conjunta dos resíduos sólidos urbanos. Além
+            disso, uma normativa do IAP proíbe a disposição final de resíduos com potencial
+            energético em aterros do Estado e orienta sobre o aproveitamento para geração de
+            energia térmica a partir da combustão de resíduos em equipamentos industriais.
+          </p>
+        </div>
+      </div>
+    </section>
+  {% endif %}
+    
+</div>
+{% endblock body %}
+
+{% block script %}{% endblock script %}

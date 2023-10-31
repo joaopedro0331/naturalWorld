@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %}Empresas{% endblock title %}
+
+{% block body %}
+<div class="container text-center">
+    <div class="row mt-5">
+        <div class="col-12">
+            <div class="row description">
+                <div class="col-6 ">
+                    <p class="text-start fs-3 fw-bold">Contatar empresas</p>
+                </div>
+                <div class="col-6 text-end">
+                    <a class="text-end fs-3 fw-bold btn btn-light" href="{% url "empresas_contratadas" %}">Empresas contratadas</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 p-5">
+            {% for e in empresa %}
+                <div class="col-12 p-1">
+                    <p class="text-start fs-5 fw-bold">{{e.nome}}</p>
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-6 ">
+                                    <p class="text-start ">{{ e.descricao }}</p>
+                                </div>
+                                <div class="col-6 text-end">
+                                    <img src="{% if e.imagem %} {{ e.imagem.url }} {% endif %}" alt="sem foto" width="40" height="40" class="rounded-circle">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-end">
+                        <button style="width: 200px;" type="button" onclick="location.href='{% url 'contratar_empresa' e.id %}';" class="btn btn-info mt-2">Contatar</button>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock body %}

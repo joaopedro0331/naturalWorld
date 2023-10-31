@@ -1,0 +1,150 @@
+{% extends "base.html" %}
+
+{% block title %}Dicas{% endblock title %}
+
+{% block body %}
+<div class="container text-center">
+    <div class="row mt-5">
+        <div class="col-6 d-flex align-items-center">
+            <p class="text-start fs-2 fw-bold">Dicas</p>
+        </div>
+        {% if user.groups.exists %}
+            {% for group in user.groups.all %}
+                {% if group.name == 'Empresa'%}
+                    <div class="text-end col-6">
+                        <p class="fs-6 fw-bold">Digite aqui seus métodos para ajudar a melhorar o meio ambiente</p>
+                        <i type="button" class="btn fa-sharp fa-solid fa-plus" style="background-color: #0097B2;" data-bs-toggle="modal" data-bs-target="#criarDica"></i>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        {% endif %}   
+        {% if messages %}
+        {% for m in messages%}
+            <div class="mt-2 alert alert-{{m.tags}} alert-dismissible fade show" role="alert">
+                <strong>{{m}}</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor%}
+        {% endif %}
+        <div class="col-12 p-5">
+            {% for d in dicas %}
+                <div class="col-12 p-1">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row description">
+                                <div class="col-6 ">
+                                    <p class="text-start fs-5">{{ d.descricao }}</p>
+                                </div>
+                                {% if user.groups.exists %}
+                                    {% for group in user.groups.all %}
+                                        {% if group.name == 'Empresa'%}
+                                            <div class="col-6 text-end">
+                                                <i type="button" class="btn fa-solid fa-pen-to-square edit-icon" style="color: #cc8c1e;"></i>
+                                                <i type="button" class="btn fas fa-trash-alt" style="color: #b50303;" onclick="location.href='{% url 'dicadelete' d.id %}';"></i>
+                                            </div>
+                                        {% endif %}
+                                    {% endfor %}
+                                {% endif %}   
+                            </div>
+                            {% if user.groups.exists %}
+                                {% for group in user.groups.all %}
+                                    {% if group.name == 'Empresa'%}
+                                        <form class="edit-form" style="display: none;" method="post" action="{% url "dicasedit" d.id %}">
+                                            {% csrf_token %}
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" value="{{ d.descricao }}" name="descricao">
+                                                <div class="input-group-append">
+                                                    <button type="submit" class="btn btn-success ms-1">Salvar</button>
+                                                    <button type="button" class="btn btn-secondary cancel-edit">Cancelar</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    {% endif %}
+                                {% endfor %}
+                            {% endif %}   
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+            {% if dicas == none %}
+                <div class="col-12 p-1">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row description">
+                                <p class="text-center fs-2 ">Não existe dicas</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% if user.groups.exists %}
+    {% for group in user.groups.all %}
+        {% if group.name == 'Empresa'%}
+            <div class="modal fade" id="criarDica" tabindex="-1" aria-labelledby="criarDica" aria-hidden="true">
+                <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="criarDica">Dicas</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form method="post" action="{% url "dicas" %}">
+                            {% csrf_token %}
+                            <div class="mb-3">
+                                <label for="texto" class="form-label">Descrição</label>
+                                <textarea class="form-control" id="descricao" name="descricao" rows="5"></textarea>
+                            </div>
+                    </div>
+                    <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                            <button type="submit" class="btn btn-primary">Adicionar Dicas</button>
+                        </form>
+                    </div>
+                </div>
+                </div>
+            </div>
+        {% endif %}
+    {% endfor %}
+{% endif %}   
+{% endblock body %}
+
+{% block script %}
+{% if user.groups.exists %}
+    {% for group in user.groups.all %}
+        {% if group.name == 'Empresa'%}
+            <script>
+                document.addEventListener("DOMContentLoaded", function () {
+                    const editIcons = document.querySelectorAll(".edit-icon");
+                    
+                    editIcons.forEach(function (icon) {
+                        icon.addEventListener("click", function () {
+                            const cardBody = icon.closest(".card-body");
+                            const description = cardBody.querySelector(".description");
+                            const editForm = cardBody.querySelector(".edit-form");
+                            
+                            description.style.display = "none";
+                            editForm.style.display = "block";
+                        });
+                    });
+                    
+                    const cancelButtons = document.querySelectorAll(".cancel-edit");
+                    
+                    cancelButtons.forEach(function (button) {
+                        button.addEventListener("click", function () {
+                            const cardBody = button.closest(".card-body");
+                            const description = cardBody.querySelector(".description");
+                            const editForm = cardBody.querySelector(".edit-form");
+                            
+                            description.style.display = "";
+                            editForm.style.display = "none";
+                        });
+                    });
+                });
+            </script>  
+        {% endif %}
+    {% endfor %}
+{% endif %}   
+{% endblock script %}

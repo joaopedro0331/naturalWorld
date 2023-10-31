@@ -1,7 +1,5 @@
 # Natural-World [![Build Status](https://skillicons.dev/icons?i=github)](https://github.com/klebersonfialhobaleeiro)
 
-Sistema de sla oq
-
 
 
 ## Dependências
